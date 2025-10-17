@@ -43,4 +43,25 @@ import { creerPanier, ajouterObjet, calculerPrixTotal, Objet } from '../src/pagn
     ajouterObjet(liste, { nom: 'échantillon gratuit', prix: 0 });
     expect(liste).toContainEqual({ nom: 'échantillon gratuit', prix: 0 });
   });
+
+  test('applique une réduction de 10% pour un panier >= 100€', () => {
+    const liste: { nom: string; prix: number }[] = [
+      { nom: 'article1', prix: 60 },
+      { nom: 'article2', prix: 40 },
+      { nom: 'article3', prix: 20 }
+    ];
+
+    const total = calculerPrixTotal(liste);
+    expect(total).toBeCloseTo(108);
+  });
+
+  test('n\'applique pas de réduction pour un panier < 100€', () => {
+    const liste: { nom: string; prix: number }[] = [
+      { nom: 'article1', prix: 50 },
+      { nom: 'article2', prix: 40 }
+    ];
+
+    const total = calculerPrixTotal(liste);
+    expect(total).toBeCloseTo(90);
+  });
 });

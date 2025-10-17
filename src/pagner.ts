@@ -12,5 +12,11 @@ export function ajouterObjet(liste: Objet[], objet: Objet): void {
 }
 
 export function calculerPrixTotal(liste: Objet[]): number {
-  return liste.reduce((acc, obj) => acc + obj.prix, 0);
+  const sousTotal = liste.reduce((acc, obj) => acc + obj.prix, 0);
+  
+  if (sousTotal >= 100) {
+    return sousTotal * 0.9; 
+  }
+  
+  return sousTotal;
 }
