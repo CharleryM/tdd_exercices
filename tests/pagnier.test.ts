@@ -21,15 +21,26 @@ import { creerPanier, ajouterObjet, calculerPrixTotal, Objet } from '../src/pagn
 		expect(liste).toContainEqual(objet);
 	});
 
-	test('calcule le prix total des objets', () => {
-		const liste: { nom: string; prix: number }[] = [
-			{ nom: 'pomme', prix: 2 },
-			{ nom: 'banane', prix: 1.5 },
-			{ nom: 'orange', prix: 3 }
-		];
-		const total = liste.reduce((acc, obj) => acc + obj.prix, 0);
-		expect(total).toBeCloseTo(6.5);
-	});
+  test('calcule le prix total des objets', () => {
+    const liste: { nom: string; prix: number }[] = [
+      { nom: 'pomme', prix: 2 },
+      { nom: 'banane', prix: 1.5 },
+      { nom: 'orange', prix: 3 }
+    ];
+    const total = liste.reduce((acc, obj) => acc + obj.prix, 0);
+    expect(total).toBeCloseTo(6.5);
+  });
+
+  test('n\'accepte pas un prix négatif', () => {
+    const liste: { nom: string; prix: number }[] = [];
+    expect(() => {
+      ajouterObjet(liste, { nom: 'pomme', prix: -2 });
+    }).toThrow('Le prix ne peut pas être négatif');
+  });
+
+  test('accepte un prix nul (gratuit)', () => {
+    const liste: { nom: string; prix: number }[] = [];
+    ajouterObjet(liste, { nom: 'échantillon gratuit', prix: 0 });
+    expect(liste).toContainEqual({ nom: 'échantillon gratuit', prix: 0 });
+  });
 });
-
-

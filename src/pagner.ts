@@ -5,6 +5,9 @@ export function creerPanier(): Objet[] {
 }
 
 export function ajouterObjet(liste: Objet[], objet: Objet): void {
+  if (objet.prix < 0) {
+    throw new Error('Le prix ne peut pas être négatif');
+  }
   liste.push(objet);
 }
 
